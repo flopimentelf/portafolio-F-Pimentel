@@ -1,235 +1,1128 @@
 
-<!-- INTRO DE BURBUJAS -->
-<div class="bubble-intro" id="bubbleIntro">
-  <div class="bubble-heading">
-    <p>FLORENCIA PIMENTEL · EAD PUCV</p>
-    <h2>Un momento para explorar.</h2>
-    <span>Mueve el cursor y descubre lo que hay detrás.</span>
-  </div>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#f7f8fc">
+  <meta name="description" content="Portafolio de Florencia Pimentel, estudiante de la Escuela de Arquitectura y Diseño de la PUCV.">
+  <title>Florencia Pimentel | Portafolio</title>
 
-  <div class="bubble-field" id="bubbleField"></div>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 
-  <button class="skip-intro" id="skipIntro" type="button">
-    Saltar intro <span aria-hidden="true">↗</span>
-  </button>
-</div>
-
-<style>
-  .bubble-intro {
-    position: fixed;
-    inset: 0;
-    z-index: 9999;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    overflow: hidden;
-    background: #1749c5;
-    color: #fff;
-    transition: opacity 500ms ease, visibility 500ms ease;
-  }
-
-  .bubble-intro.is-hidden {
-    opacity: 0;
-    visibility: hidden;
-    pointer-events: none;
-  }
-
-  .bubble-heading {
-    position: relative;
-    z-index: 2;
-    width: min(90%, 650px);
-    text-align: center;
-    pointer-events: none;
-  }
-
-  .bubble-heading p {
-    margin-bottom: 24px;
-    font-size: 10px;
-    font-weight: 700;
-    letter-spacing: .16em;
-  }
-
-  .bubble-heading h2 {
-    margin: 0 0 16px;
-    font-size: clamp(32px, 6vw, 66px);
-    font-weight: 600;
-    letter-spacing: -.07em;
-    line-height: 1.05;
-  }
-
-  .bubble-heading span {
-    color: #dce6ff;
-    font-size: 12px;
-    line-height: 1.8;
-  }
-
-  .bubble-field {
-    position: absolute;
-    inset: 0;
-    overflow: hidden;
-    pointer-events: none;
-  }
-
-  .bubble {
-    position: absolute;
-    display: block;
-    padding: 0;
-    border: none;
-    border-radius: 50%;
-    cursor: pointer;
-    pointer-events: auto;
-    background: #315fe0;
-    animation: bubbleFloat var(--duration, 7s) ease-in-out infinite alternate;
-    transition: opacity 180ms ease, transform 180ms ease;
-    -webkit-tap-highlight-color: transparent;
-  }
-
-  .bubble:nth-child(3n + 1) {
-    background: #315fe0;
-  }
-
-  .bubble:nth-child(3n + 2) {
-    background: #6288f5;
-  }
-
-  .bubble:nth-child(3n) {
-    background: #0c35a2;
-  }
-
-  .bubble.popped {
-    opacity: 0;
-    transform: scale(1.12);
-    pointer-events: none;
-  }
-
-  @keyframes bubbleFloat {
-    from {
-      translate: 0 0;
+  <style>
+    :root {
+      --paper: #f7f8fc;
+      --white: #ffffff;
+      --ink: #171717;
+      --muted: #626779;
+      --blue: #1749c5;
+      --blue-light: #dce6ff;
+      --blue-pale: #edf2ff;
+      --line: #d5dced;
+      --page-width: 1240px;
     }
 
-    to {
-      translate: 0 -12px;
-    }
-  }
-
-  .skip-intro {
-    position: absolute;
-    z-index: 5;
-    right: 28px;
-    bottom: 28px;
-    padding: 13px 18px;
-    border: 1px solid #fff;
-    border-radius: 30px;
-    background: #fff;
-    color: #1749c5;
-    font: 600 11px "Montserrat", sans-serif;
-    cursor: pointer;
-  }
-
-  .skip-intro:hover {
-    background: #dce6ff;
-  }
-
-  @media (max-width: 600px) {
-    .bubble-heading {
-      width: 84%;
+    * {
+      box-sizing: border-box;
     }
 
-    .bubble-heading h2 {
-      font-size: 39px;
+    html {
+      scroll-behavior: smooth;
+      scroll-padding-top: 30px;
     }
 
-    .skip-intro {
-      right: 18px;
-      bottom: 18px;
+    body {
+      margin: 0;
+      background: var(--paper);
+      color: var(--ink);
+      font-family: "Montserrat", sans-serif;
+      -webkit-font-smoothing: antialiased;
     }
-  }
 
-  @media (prefers-reduced-motion: reduce) {
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    button {
+      font-family: inherit;
+    }
+
+    a:focus-visible,
+    button:focus-visible {
+      outline: 2px solid var(--blue);
+      outline-offset: 5px;
+    }
+
+    .page {
+      width: min(calc(100% - 64px), var(--page-width));
+      margin-inline: auto;
+    }
+
+    /* NAVEGACIÓN */
+
+    .topbar {
+      position: relative;
+      z-index: 10;
+      min-height: 76px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+      border-bottom: 2px solid var(--blue);
+    }
+
+    .wordmark {
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: -.035em;
+      text-transform: uppercase;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 30px;
+      align-items: center;
+    }
+
+    .nav-links a,
+    .topbar-meta {
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: .11em;
+      text-transform: uppercase;
+    }
+
+    .nav-links a {
+      transition: color .2s ease;
+    }
+
+    .nav-links a:hover {
+      color: var(--blue);
+    }
+
+    .topbar-meta {
+      color: var(--blue);
+      white-space: nowrap;
+    }
+
+    /* PORTADA */
+
+    .hero {
+      position: relative;
+      isolation: isolate;
+      min-height: 720px;
+      display: grid;
+      grid-template-columns: minmax(0, 1.5fr) minmax(230px, .6fr);
+      align-items: center;
+      gap: 35px;
+      padding-block: 90px 80px;
+      border-bottom: 1px solid var(--line);
+      overflow: hidden;
+      background:
+        linear-gradient(
+          120deg,
+          transparent 62%,
+          rgba(220, 230, 255, .56) 62%,
+          rgba(237, 242, 255, .5) 100%
+        );
+    }
+
+    .hero-copy,
+    .hero-side {
+      position: relative;
+      z-index: 2;
+    }
+
+    .eyebrow {
+      display: inline-block;
+      margin: 0 0 30px;
+      padding: 9px 12px;
+      background: var(--blue-pale);
+      color: var(--blue);
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: .15em;
+      text-transform: uppercase;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: clamp(64px, 8.7vw, 124px);
+      font-weight: 300;
+      letter-spacing: -.095em;
+      line-height: .87;
+    }
+
+    h1 .name {
+      display: block;
+      margin-top: 12px;
+      color: var(--blue);
+      font-weight: 800;
+      letter-spacing: -.09em;
+    }
+
+    .hero-side {
+      align-self: end;
+      padding-bottom: 28px;
+    }
+
+    .hero-side p {
+      max-width: 320px;
+      margin: 0 0 20px;
+      font-size: 13px;
+      line-height: 1.9;
+    }
+
+    .hero-side .degree {
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .hero-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 15px;
+      margin-top: 16px;
+      padding: 12px 0;
+      border-bottom: 1px solid var(--blue);
+      color: var(--blue);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+    }
+
+    .hero-link span {
+      font-size: 20px;
+      transition: transform .2s ease;
+    }
+
+    .hero-link:hover span {
+      transform: translate(4px, -4px);
+    }
+
+    /* BURBUJAS INTERACTIVAS EN LA PORTADA */
+
+    .bubble-field {
+      position: absolute;
+      z-index: 3;
+      inset: 0;
+      overflow: hidden;
+      pointer-events: none;
+    }
+
     .bubble {
+      position: absolute;
+      display: block;
+      padding: 0;
+      border: 0;
+      border-radius: 50%;
+      appearance: none;
+      cursor: crosshair;
+      pointer-events: auto;
+      background:
+        radial-gradient(
+          ellipse at 28% 20%,
+          rgba(255,255,255,.92) 0%,
+          rgba(255,255,255,.25) 8%,
+          transparent 25%
+        ),
+        radial-gradient(
+          ellipse at 70% 78%,
+          rgba(255,119,210,.25),
+          transparent 45%
+        ),
+        radial-gradient(
+          ellipse at 25% 80%,
+          rgba(76,185,255,.24),
+          transparent 48%
+        ),
+        radial-gradient(
+          circle at 50% 50%,
+          rgba(255,255,255,.06) 48%,
+          rgba(255,255,255,.20) 65%,
+          rgba(112,160,255,.75) 78%,
+          rgba(255,153,225,.85) 82%,
+          rgba(255,255,255,.85) 85%,
+          rgba(123,180,255,.85) 89%,
+          rgba(255,255,255,.15) 94%,
+          transparent 100%
+        );
+
+      box-shadow:
+        inset 0 0 9px rgba(255,255,255,.65),
+        0 0 12px rgba(100,139,255,.12);
+
+      opacity: .84;
+      animation: bubbleDrift var(--duration, 7s) ease-in-out infinite alternate;
+      transition:
+        opacity .16s ease,
+        transform .18s ease;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    .bubble::before {
+      content: "";
+      position: absolute;
+      inset: 5%;
+      border-radius: 50%;
+      border-top: 2px solid rgba(255,255,255,.82);
+      border-left: 1px solid rgba(255,181,236,.65);
+      transform: rotate(-32deg);
+      pointer-events: none;
+    }
+
+    .bubble::after {
+      content: "";
+      position: absolute;
+      width: 22%;
+      height: 8%;
+      left: 23%;
+      top: 15%;
+      border-radius: 50%;
+      background: rgba(255,255,255,.8);
+      filter: blur(2px);
+      transform: rotate(-35deg);
+      pointer-events: none;
+    }
+
+    .bubble:hover {
+      opacity: 1;
+    }
+
+    .bubble.popping {
+      opacity: 0;
+      transform: scale(1.35);
+      pointer-events: none;
       animation: none;
     }
 
-    .bubble-intro {
-      transition-duration: 0.01ms;
-    }
-  }
-</style>
-
-<script>
-  (() => {
-    const intro = document.getElementById("bubbleIntro");
-    const field = document.getElementById("bubbleField");
-    const skip = document.getElementById("skipIntro");
-
-    if (!intro || !field || !skip) return;
-
-    const reducedMotion = window.matchMedia(
-      "(prefers-reduced-motion: reduce)"
-    ).matches;
-
-    let closed = false;
-
-    function closeIntro() {
-      if (closed) return;
-
-      closed = true;
-      intro.classList.add("is-hidden");
-
-      window.setTimeout(() => {
-        intro.remove();
-      }, 550);
+    .bubble-particle {
+      position: absolute;
+      z-index: 4;
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      background: #ffb7ec;
+      pointer-events: none;
+      animation: particleBurst .38s ease-out forwards;
     }
 
-    skip.addEventListener("click", closeIntro);
+    @keyframes bubbleDrift {
+      from {
+        translate: 0 0;
+      }
+      to {
+        translate: 8px -13px;
+      }
+    }
 
-    const bubbleCount = reducedMotion ? 18 : 42;
+    @keyframes particleBurst {
+      from {
+        opacity: .95;
+        transform: translate(0, 0) scale(1);
+      }
+      to {
+        opacity: 0;
+        transform: translate(var(--dx), var(--dy)) scale(.15);
+      }
+    }
 
-    for (let i = 0; i < bubbleCount; i++) {
-      const bubble = document.createElement("button");
+    .explore {
+      position: absolute;
+      z-index: 2;
+      bottom: 26px;
+      left: 0;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      color: var(--blue);
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+    }
 
-      bubble.type = "button";
-      bubble.className = "bubble";
-      bubble.setAttribute("aria-label", "Reventar burbuja");
+    .explore .arrow {
+      display: inline-block;
+      font-size: 25px;
+      font-weight: 400;
+      animation: arrowDown 1.5s ease-in-out infinite;
+    }
 
-      const size = 45 + Math.random() * 100;
-      const x = Math.random() * 100;
-      const y = Math.random() * 100;
-      const duration = 4 + Math.random() * 6;
+    @keyframes arrowDown {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(6px); }
+    }
 
-      bubble.style.width = `${size}px`;
-      bubble.style.height = `${size}px`;
-      bubble.style.left = `${x}%`;
-      bubble.style.top = `${y}%`;
-      bubble.style.setProperty("--duration", `${duration}s`);
-      bubble.style.animationDelay = `${Math.random() * -6}s`;
+    /* TEXTO INTRODUCTORIO */
 
-      let popped = false;
+    .intro-strip {
+      display: grid;
+      grid-template-columns: .75fr 2fr;
+      gap: 40px;
+      padding: 38px 24px;
+      background: var(--blue-pale);
+      border-bottom: 1px solid var(--line);
+    }
 
-      function popBubble() {
-        if (popped || closed) return;
+    .section-label {
+      margin: 0;
+      color: var(--blue);
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: .13em;
+      line-height: 1.8;
+      text-transform: uppercase;
+    }
 
-        popped = true;
-        bubble.classList.add("popped");
+    .intro-text {
+      max-width: 760px;
+      margin: 0;
+      font-size: clamp(15px, 1.7vw, 20px);
+      font-weight: 500;
+      letter-spacing: -.035em;
+      line-height: 1.8;
+    }
+
+    /* PROYECTOS */
+
+    .work-section {
+      padding-block: 90px 100px;
+    }
+
+    .section-heading {
+      display: flex;
+      justify-content: space-between;
+      align-items: end;
+      gap: 30px;
+      margin-bottom: 42px;
+    }
+
+    .section-heading h2 {
+      margin: 12px 0 0;
+      font-size: clamp(48px, 7vw, 82px);
+      font-weight: 600;
+      letter-spacing: -.08em;
+      line-height: 1;
+    }
+
+    .section-heading .note {
+      max-width: 270px;
+      margin: 0;
+      color: var(--muted);
+      font-size: 11px;
+      line-height: 1.9;
+    }
+
+    .project-list {
+      margin-bottom: 66px;
+    }
+
+    .work-group-title {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      margin: 0;
+      padding: 20px 0;
+      border-top: 2px solid var(--blue);
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    .work-group-title span {
+      color: var(--blue);
+      font-size: 10px;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+    }
+
+    .project {
+      display: grid;
+      grid-template-columns: minmax(170px, .75fr) minmax(0, 1.7fr) 38px;
+      gap: 28px;
+      align-items: center;
+      padding: 27px 0;
+      border-bottom: 1px solid var(--line);
+      transition: padding .2s ease, background .2s ease;
+    }
+
+    a.project:hover {
+      padding-inline: 10px;
+      background: rgba(23,73,197,.035);
+    }
+
+    .project-type {
+      color: var(--muted);
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: .07em;
+      line-height: 1.8;
+      text-transform: uppercase;
+    }
+
+    .project-main h3 {
+      margin: 0 0 8px;
+      font-size: clamp(17px, 2.2vw, 25px);
+      font-weight: 600;
+      letter-spacing: -.055em;
+      line-height: 1.3;
+      transition: color .2s ease;
+    }
+
+    a.project:hover .project-main h3 {
+      color: var(--blue);
+    }
+
+    .project-main p {
+      max-width: 630px;
+      margin: 0;
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.9;
+    }
+
+    .project-arrow {
+      display: grid;
+      width: 36px;
+      height: 36px;
+      place-items: center;
+      border: 1px solid var(--line);
+      border-radius: 50%;
+      color: var(--blue);
+      font-size: 17px;
+      transition: background .2s ease, color .2s ease;
+    }
+
+    a.project:hover .project-arrow {
+      background: var(--blue);
+      color: white;
+      border-color: var(--blue);
+    }
+
+    .pending {
+      color: #85857f;
+    }
+
+    .pending .project-arrow {
+      border-style: dashed;
+      color: #85857f;
+    }
+
+    /* SOBRE MÍ */
+
+    .about {
+      display: grid;
+      grid-template-columns: .75fr 2fr;
+      gap: 40px;
+      padding: 42px 24px 90px;
+      background: var(--blue-pale);
+      border-top: 1px solid var(--line);
+    }
+
+    .about-copy {
+      max-width: 740px;
+    }
+
+    .about-copy p {
+      margin: 0 0 18px;
+      font-size: 14px;
+      line-height: 1.95;
+    }
+
+    .about-copy .small-note {
+      color: var(--muted);
+      font-size: 11px;
+    }
+
+    /* PIE DE PÁGINA */
+
+    footer {
+      background: var(--ink);
+      color: var(--white);
+      border-top: 5px solid var(--blue);
+    }
+
+    .footer-inner {
+      display: flex;
+      justify-content: space-between;
+      align-items: end;
+      gap: 30px;
+      padding-block: 34px;
+    }
+
+    .footer-name {
+      margin: 0 0 8px;
+      font-size: 18px;
+      font-weight: 700;
+      letter-spacing: -.05em;
+    }
+
+    .footer-caption {
+      margin: 0;
+      color: #b8b8b3;
+      font-size: 10px;
+      line-height: 1.9;
+    }
+
+    .footer-link {
+      color: #9db8ff;
+      font-size: 11px;
+      font-weight: 600;
+    }
+
+    /* RESPONSIVE */
+
+    @media (max-width: 850px) {
+      .topbar-meta {
+        display: none;
+      }
+
+      .hero {
+        min-height: 680px;
+        grid-template-columns: 1fr;
+        align-content: center;
+        gap: 38px;
+        padding-block: 90px 90px;
+      }
+
+      h1 {
+        font-size: clamp(64px, 12vw, 100px);
+      }
+
+      .hero-side {
+        max-width: 420px;
+        padding-bottom: 0;
+      }
+
+      .hero-side p {
+        max-width: 400px;
+      }
+
+      .project {
+        grid-template-columns: minmax(130px, .65fr) minmax(0, 1.5fr) 34px;
+        gap: 18px;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .page {
+        width: calc(100% - 36px);
+      }
+
+      .topbar {
+        min-height: 68px;
+      }
+
+      .wordmark {
+        font-size: 10px;
+      }
+
+      .nav-links {
+        gap: 12px;
+      }
+
+      .nav-links a {
+        font-size: 8px;
+        letter-spacing: .04em;
+      }
+
+      .hero {
+        min-height: 720px;
+        gap: 34px;
+        padding-block: 74px 95px;
+      }
+
+      h1 {
+        font-size: clamp(57px, 13.4vw, 82px);
+        line-height: .93;
+      }
+
+      h1 .name {
+        margin-top: 9px;
+      }
+
+      .eyebrow {
+        margin-bottom: 25px;
+      }
+
+      .hero-side p {
+        font-size: 12px;
+      }
+
+      .bubble {
+        opacity: .75;
+      }
+
+      .explore {
+        bottom: 22px;
+      }
+
+      .intro-strip,
+      .about {
+        grid-template-columns: 1fr;
+        gap: 18px;
+        padding-inline: 18px;
+      }
+
+      .intro-strip {
+        padding-block: 30px;
+      }
+
+      .work-section {
+        padding-block: 66px 70px;
+      }
+
+      .section-heading {
+        align-items: start;
+        flex-direction: column;
+        gap: 18px;
+      }
+
+      .project {
+        grid-template-columns: 1fr 32px;
+        gap: 9px 16px;
+        padding-block: 23px;
+      }
+
+      .project-type,
+      .project-main {
+        grid-column: 1;
+      }
+
+      .project-arrow {
+        grid-column: 2;
+        grid-row: 1 / span 2;
+        align-self: center;
+      }
+
+      .project-list {
+        margin-bottom: 48px;
+      }
+
+      .about {
+        padding-block: 32px 62px;
+      }
+
+      .footer-inner {
+        align-items: start;
+        flex-direction: column;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html {
+        scroll-behavior: auto;
+      }
+
+      .bubble,
+      .explore .arrow {
+        animation: none;
+      }
+
+      *,
+      *::before,
+      *::after {
+        transition-duration: .01ms !important;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- NAVEGACIÓN -->
+  <header class="page topbar">
+    <a class="wordmark" href="#inicio">Florencia Pimentel</a>
+
+    <nav class="nav-links" aria-label="Navegación principal">
+      <a href="#proyectos">Proyectos</a>
+      <a href="#sobre-mi">Sobre mí</a>
+    </nav>
+
+    <div class="topbar-meta">EAD · PUCV</div>
+  </header>
+
+  <main>
+
+    <!-- PORTADA CON BURBUJAS INTERACTIVAS -->
+    <section class="page hero" id="inicio">
+
+      <div class="hero-copy">
+        <p class="eyebrow">EAD · PUCV · Diseño</p>
+
+        <h1>
+          Hola, soy
+          <span class="name">Florencia<br>Pimentel.</span>
+        </h1>
+      </div>
+
+      <div class="hero-side">
+        <p>
+          Estudiante de la Escuela de Arquitectura y Diseño de la
+          Pontificia Universidad Católica de Valparaíso.
+        </p>
+
+        <p class="degree">
+          Cursando cuarto año, en la etapa previa al título.
+        </p>
+
+        <a class="hero-link" href="#proyectos">
+          Ver proyectos <span aria-hidden="true">↗</span>
+        </a>
+      </div>
+
+      <!-- Las burbujas existen solo dentro de la portada -->
+      <div class="bubble-field" id="bubbleField" aria-hidden="true"></div>
+
+      <a class="explore" href="#introduccion">
+        <span class="arrow" aria-hidden="true">↓</span>
+        Explorar
+      </a>
+
+    </section>
+
+    <!-- PRESENTACIÓN -->
+    <section class="page intro-strip" id="introduccion">
+      <p class="section-label">Una selección de trabajos</p>
+
+      <p class="intro-text">
+        Proyectos y trabajos de diseño desarrollados durante mi formación.
+        Un recorrido por encargos académicos, exploraciones de materialidad
+        y experiencias digitales, desde el diseño hasta el código.
+      </p>
+    </section>
+
+    <!-- PROYECTOS -->
+    <section class="page work-section" id="proyectos">
+
+      <div class="section-heading">
+        <div>
+          <p class="section-label">Selección de proyectos</p>
+          <h2>Trabajos</h2>
+        </div>
+
+        <p class="note">
+          Procesos, ejercicios y resultados realizados durante mi formación
+          en diseño.
+        </p>
+      </div>
+
+      <!-- ENCARGOS WEB -->
+      <div class="project-list">
+
+        <h3 class="work-group-title">
+          <span>Web</span>
+          Encargos del semestre
+        </h3>
+
+        <a class="project"
+           href="https://florenciapimentel.github.io/Presentacion-personal-/"
+           target="_blank" rel="noopener noreferrer">
+
+          <div class="project-type">Desarrollo web</div>
+
+          <div class="project-main">
+            <h3>Presentación personal</h3>
+            <p>
+              Un espacio digital para presentar mi perfil y explorar
+              la construcción de una identidad a través del código.
+            </p>
+          </div>
+
+          <span class="project-arrow" aria-hidden="true">↗</span>
+        </a>
+
+        <!-- Reemplazar este bloque cuando esté disponible el segundo enlace -->
+        <div class="project pending">
+          <div class="project-type">Desarrollo web</div>
+
+          <div class="project-main">
+            <h3>Segundo encargo</h3>
+            <p>Proyecto pendiente de incorporar.</p>
+          </div>
+
+          <span class="project-arrow" aria-hidden="true">↗</span>
+        </div>
+
+        <a class="project"
+           href="https://flopimentelf.github.io/Pag-web-analisis/#zara"
+           target="_blank" rel="noopener noreferrer">
+
+          <div class="project-type">Análisis visual · Web</div>
+
+          <div class="project-main">
+            <h3>Análisis de Zara</h3>
+            <p>
+              Observación y análisis de una experiencia digital,
+              atendiendo a sus recursos visuales y a la organización
+              de la información.
+            </p>
+          </div>
+
+          <span class="project-arrow" aria-hidden="true">↗</span>
+        </a>
+
+        <a class="project"
+           href="https://flopimentelf.github.io/Municipalidad-Poe-Rapanui/index.html"
+           target="_blank" rel="noopener noreferrer">
+
+          <div class="project-type">Diseño web</div>
+
+          <div class="project-main">
+            <h3>Municipalidad Poʻe Rapa Nui</h3>
+            <p>
+              Propuesta web vinculada a la comunicación institucional
+              y a la presentación de información.
+            </p>
+          </div>
+
+          <span class="project-arrow" aria-hidden="true">↗</span>
+        </a>
+
+      </div>
+
+      <!-- PROYECTOS DE LA WIKI -->
+      <div class="project-list">
+
+        <h3 class="work-group-title">
+          <span>EAD · PUCV</span>
+          Proyectos de taller
+        </h3>
+
+        <a class="project"
+           href="https://wiki.ead.pucv.cl/Florencia_Pimentel#Atlas_Acr%C3%ADlico"
+           target="_blank" rel="noopener noreferrer">
+
+          <div class="project-type">Materialidad · Investigación</div>
+
+          <div class="project-main">
+            <h3>Atlas Acrílico</h3>
+            <p>
+              Exploración y registro de las cualidades del acrílico
+              como material de diseño.
+            </p>
+          </div>
+
+          <span class="project-arrow" aria-hidden="true">↗</span>
+        </a>
+
+        <a class="project"
+           href="https://wiki.ead.pucv.cl/Florencia_Pimentel#Atlas_Material"
+           target="_blank" rel="noopener noreferrer">
+
+          <div class="project-type">Investigación material</div>
+
+          <div class="project-main">
+            <h3>Atlas Material</h3>
+            <p>
+              Ejercicio de observación, recopilación y organización
+              de información sobre materiales.
+            </p>
+          </div>
+
+          <span class="project-arrow" aria-hidden="true">↗</span>
+        </a>
+
+        <a class="project"
+           href="https://wiki.ead.pucv.cl/Florencia_Pimentel#FMD_2024_-_Proyecto_Mobiliario_/_Florencia_Pimentel"
+           target="_blank" rel="noopener noreferrer">
+
+          <div class="project-type">Diseño de mobiliario · 2024</div>
+
+          <div class="project-main">
+            <h3>Proyecto Mobiliario</h3>
+            <p>
+              Ejercicio de diseño y desarrollo de una propuesta
+              de mobiliario en el marco de FMD 2024.
+            </p>
+          </div>
+
+          <span class="project-arrow" aria-hidden="true">↗</span>
+        </a>
+
+        <a class="project"
+           href="https://wiki.ead.pucv.cl/Florencia_Pimentel#Matias_Arce,_Alonso_Hernandez,_Florencia_Pimentel._TPyT_S1_2026._Flujo_y_Asiento"
+           target="_blank" rel="noopener noreferrer">
+
+          <div class="project-type">Taller de Personas y Territorios · 2026</div>
+
+          <div class="project-main">
+            <h3>Flujo y Asiento</h3>
+            <p>
+              Proyecto colaborativo con Matías Arce y Alonso Hernández,
+              centrado en la relación entre el flujo y la experiencia del espacio.
+            </p>
+          </div>
+
+          <span class="project-arrow" aria-hidden="true">↗</span>
+        </a>
+
+        <a class="project"
+           href="https://wiki.ead.pucv.cl/Florencia_Pimentel#TPyT_S1_2026._Continuidad_estratificada_de_una_forma_envolvente"
+           target="_blank" rel="noopener noreferrer">
+
+          <div class="project-type">Taller de Personas y Territorios · 2026</div>
+
+          <div class="project-main">
+            <h3>Continuidad estratificada de una forma envolvente</h3>
+            <p>
+              Exploración formal a partir de la continuidad, las capas
+              y la construcción de una forma envolvente.
+            </p>
+          </div>
+
+          <span class="project-arrow" aria-hidden="true">↗</span>
+        </a>
+
+      </div>
+    </section>
+
+    <!-- SOBRE MÍ -->
+    <section class="page about" id="sobre-mi">
+
+      <p class="section-label">Sobre mí</p>
+
+      <div class="about-copy">
+        <p>
+          Soy Florencia Pimentel, estudiante de cuarto año de la
+          Escuela de Arquitectura y Diseño de la Pontificia Universidad
+          Católica de Valparaíso, en la etapa previa al título.
+        </p>
+
+        <p>
+          Este sitio reúne parte de mi trabajo académico y mis exploraciones
+          en diseño. Cada proyecto responde a una pregunta, un contexto y
+          una manera de observar, investigar y dar forma a las ideas.
+        </p>
+
+        <p class="small-note">
+          Los proyectos enlazan a sus publicaciones originales o a sus versiones web.
+        </p>
+      </div>
+
+    </section>
+
+  </main>
+
+  <!-- PIE DE PÁGINA -->
+  <footer>
+    <div class="page footer-inner">
+
+      <div>
+        <p class="footer-name">Florencia Pimentel</p>
+        <p class="footer-caption">
+          Escuela de Arquitectura y Diseño · PUCV<br>
+          Portafolio académico · 2026
+        </p>
+      </div>
+
+      <a class="footer-link"
+         href="https://wiki.ead.pucv.cl/Florencia_Pimentel"
+         target="_blank" rel="noopener noreferrer">
+        Wiki EAD PUCV ↗
+      </a>
+
+    </div>
+  </footer>
+
+  <!-- INTERACCIÓN DE LAS BURBUJAS -->
+  <script>
+    (() => {
+      const hero = document.querySelector(".hero");
+      const field = document.getElementById("bubbleField");
+
+      if (!hero || !field) return;
+
+      const reducedMotion = window.matchMedia(
+        "(prefers-reduced-motion: reduce)"
+      ).matches;
+
+      const bubbleCount = window.innerWidth < 600 ? 16 : 30;
+
+      function popBubble(bubble) {
+        if (bubble.dataset.popped === "true") return;
+
+        bubble.dataset.popped = "true";
+
+        const rect = bubble.getBoundingClientRect();
+        const heroRect = hero.getBoundingClientRect();
+
+        const centerX = rect.left - heroRect.left + rect.width / 2;
+        const centerY = rect.top - heroRect.top + rect.height / 2;
+
+        // Pequeñas gotas que salen disparadas al explotar
+        if (!reducedMotion) {
+          for (let i = 0; i < 7; i++) {
+            const particle = document.createElement("span");
+            const angle = (Math.PI * 2 * i) / 7;
+            const distance = 18 + Math.random() * 30;
+
+            particle.className = "bubble-particle";
+            particle.style.left = `${centerX}px`;
+            particle.style.top = `${centerY}px`;
+            particle.style.setProperty(
+              "--dx",
+              `${Math.cos(angle) * distance}px`
+            );
+            particle.style.setProperty(
+              "--dy",
+              `${Math.sin(angle) * distance}px`
+            );
+
+            field.appendChild(particle);
+            particle.addEventListener("animationend", () => {
+              particle.remove();
+            }, { once: true });
+          }
+        }
+
+        bubble.classList.add("popping");
 
         window.setTimeout(() => {
           bubble.remove();
-
-          if (!closed && field.children.length === 0) {
-            closeIntro();
-          }
         }, 190);
       }
 
-      bubble.addEventListener("pointerenter", (event) => {
-        if (event.pointerType === "mouse") {
-          popBubble();
-        }
-      });
+      for (let i = 0; i < bubbleCount; i++) {
+        const bubble = document.createElement("button");
 
-      bubble.addEventListener("click", popBubble);
+        bubble.type = "button";
+        bubble.className = "bubble";
+        bubble.setAttribute("aria-label", "Reventar burbuja");
 
-      field.appendChild(bubble);
-    }
-  })();
-</script>
+        const size = 38 + Math.random() * 100;
+
+        bubble.style.width = `${size}px`;
+        bubble.style.height = `${size}px`;
+        bubble.style.left = `${Math.random() * 96}%`;
+        bubble.style.top = `${Math.random() * 90}%`;
+        bubble.style.setProperty(
+          "--duration",
+          `${5 + Math.random() * 5}s`
+        );
+        bubble.style.animationDelay = `${Math.random() * -7}s`;
+
+        // En computador explota al pasar el cursor.
+        bubble.addEventListener("pointerenter", (event) => {
+          if (event.pointerType === "mouse") {
+            popBubble(bubble);
+          }
+        });
+
+        // En celular explota al tocarla.
+        bubble.addEventListener("click", () => {
+          popBubble(bubble);
+        });
+
+        field.appendChild(bubble);
+      }
+    })();
+  </script>
+
+</body>
+</html>
