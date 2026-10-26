@@ -25,7 +25,7 @@
     overflow: hidden;
     background: #1749c5;
     color: #fff;
-    transition: opacity 650ms ease, visibility 650ms ease;
+    transition: opacity 500ms ease, visibility 500ms ease;
   }
 
   .bubble-intro.is-hidden {
@@ -43,7 +43,7 @@
   }
 
   .bubble-heading p {
-    margin-bottom: 28px;
+    margin-bottom: 24px;
     font-size: 10px;
     font-weight: 700;
     letter-spacing: .16em;
@@ -58,47 +58,47 @@
   }
 
   .bubble-heading span {
+    color: #dce6ff;
     font-size: 12px;
     line-height: 1.8;
-    color: #dce6ff;
   }
 
   .bubble-field {
     position: absolute;
     inset: 0;
     overflow: hidden;
+    pointer-events: none;
   }
 
   .bubble {
     position: absolute;
     display: block;
     padding: 0;
-    border: 1px solid rgba(255,255,255,.55);
+    border: none;
     border-radius: 50%;
     cursor: pointer;
-    background: radial-gradient(
-      circle at 30% 25%,
-      rgba(255,255,255,.9),
-      rgba(220,230,255,.45) 18%,
-      rgba(100,145,255,.35) 48%,
-      rgba(8,43,158,.15) 75%
-    );
-    box-shadow:
-      inset -8px -10px 20px rgba(6,31,120,.16),
-      inset 5px 5px 15px rgba(255,255,255,.25),
-      0 5px 25px rgba(8,31,108,.12);
+    pointer-events: auto;
+    background: #315fe0;
     animation: bubbleFloat var(--duration, 7s) ease-in-out infinite alternate;
-    transition: opacity 200ms ease, transform 200ms ease;
+    transition: opacity 180ms ease, transform 180ms ease;
     -webkit-tap-highlight-color: transparent;
   }
 
-  .bubble:hover {
-    transform: scale(1.12);
+  .bubble:nth-child(3n + 1) {
+    background: #315fe0;
+  }
+
+  .bubble:nth-child(3n + 2) {
+    background: #6288f5;
+  }
+
+  .bubble:nth-child(3n) {
+    background: #0c35a2;
   }
 
   .bubble.popped {
     opacity: 0;
-    transform: scale(1.65);
+    transform: scale(1.12);
     pointer-events: none;
   }
 
@@ -106,8 +106,9 @@
     from {
       translate: 0 0;
     }
+
     to {
-      translate: 10px -22px;
+      translate: 0 -12px;
     }
   }
 
@@ -117,13 +118,12 @@
     right: 28px;
     bottom: 28px;
     padding: 13px 18px;
-    border: 1px solid rgba(255,255,255,.75);
+    border: 1px solid #fff;
     border-radius: 30px;
     background: #fff;
     color: #1749c5;
     font: 600 11px "Montserrat", sans-serif;
     cursor: pointer;
-    transition: background 180ms ease, color 180ms ease;
   }
 
   .skip-intro:hover {
@@ -172,12 +172,13 @@
 
     function closeIntro() {
       if (closed) return;
+
       closed = true;
       intro.classList.add("is-hidden");
 
       window.setTimeout(() => {
         intro.remove();
-      }, 700);
+      }, 550);
     }
 
     skip.addEventListener("click", closeIntro);
@@ -191,7 +192,7 @@
       bubble.className = "bubble";
       bubble.setAttribute("aria-label", "Reventar burbuja");
 
-      const size = 35 + Math.random() * 105;
+      const size = 45 + Math.random() * 100;
       const x = Math.random() * 100;
       const y = Math.random() * 100;
       const duration = 4 + Math.random() * 6;
@@ -207,8 +208,8 @@
 
       function popBubble() {
         if (popped || closed) return;
-        popped = true;
 
+        popped = true;
         bubble.classList.add("popped");
 
         window.setTimeout(() => {
@@ -217,7 +218,7 @@
           if (!closed && field.children.length === 0) {
             closeIntro();
           }
-        }, 220);
+        }, 190);
       }
 
       bubble.addEventListener("pointerenter", (event) => {
